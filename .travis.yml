@@ -1,0 +1,35 @@
+dist: bionic
+
+language: php
+
+php:
+  - "7.2"
+  - "7.3"
+  - "7.4"
+
+env:
+  - CONTAO_VERSION=~4.4.0
+  - CONTAO_VERSION=~4.5.0
+  - CONTAO_VERSION=~4.6.0
+  - CONTAO_VERSION=~4.7.0
+  - CONTAO_VERSION=~4.8.0
+  - CONTAO_VERSION=~4.9.0
+
+matrix:
+  allow_failures:
+    - env: CONTAO_VERSION=~4.5.0
+    - env: CONTAO_VERSION=~4.6.0
+    - env: CONTAO_VERSION=~4.7.0
+    - env: CONTAO_VERSION=~4.8.0
+
+before_script:
+  - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - travis_retry composer self-update && composer --version
+  - travis_retry composer require contao/core-bundle $CONTAO_VERSIO --no-update
+  - travis_retry composer update --prefer-dist --no-interaction
+
+script: vendor/bin/phpunit
+
+cache:
+  directories:
+    - vendor

@@ -1,0 +1,14 @@
+.section-headline {
+    width: 96%;
+    margin: 18px 2%;
+    padding: 9px 0 0;
+}
+
+.has-edit-link td {
+    white-space: unset;
+}
+
+.edit-link {
+    display: inline-block;
+    transform: translateY(-2px);
+}

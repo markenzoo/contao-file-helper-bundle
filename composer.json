@@ -1,0 +1,47 @@
+{
+  "name": "markenzoo/contao-file-helper-bundle",
+  "type": "contao-bundle",
+  "version": "1.0.0",
+  "description": "File Helpers for Contao 4",
+  "homepage": "https://www.markenzoo.de/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Felix Kästner",
+      "homepage": "https://felix-kaestner.com"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "contao/core-bundle": "^4.4 || ^4.9",
+    "symfony/framework-bundle": "^3.4 || ^4.4"
+  },
+  "conflict": {
+    "contao/core": "*",
+    "contao/manager-plugin": "<2.0 || >=3.0"
+  },
+  "require-dev": {
+    "contao/manager-plugin": "^2.0",
+    "vimeo/psalm": "^3.7",
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "phpunit/phpunit": "^7.5",
+    "symfony/phpunit-bridge": "^4.4"
+  },
+  "extra": {
+    "contao-manager-plugin": "Markenzoo\\ContaoFileHelperBundle\\ContaoManager\\Plugin"
+  },
+  "autoload": {
+    "psr-4": {
+      "Markenzoo\\ContaoFileHelperBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Markenzoo\\ContaoFileHelperBundle\\Tests\\": "tests/"
+    }
+  },
+  "support": {
+    "issues": "https://github.com/markenzoo/contao-file-helper-bundle/issues",
+    "source": "https://github.com/markenzoo/contao-file-helper-bundle"
+  }
+}
