@@ -35,9 +35,9 @@ class contao_file_helper_bundle_dca_tl_files extends Contao\Backend
      * @param string $icon
      * @param string $attributes
      *
-     * @return null|string
+     * @return string
      */
-    public function showUsage($row, $href, $label, $title, $icon, $attributes): ?string
+    public function showUsage($row, $href, $label, $title, $icon, $attributes): string
     {
         if (Contao\Input::get('usage')) {
             return '';
@@ -48,5 +48,7 @@ class contao_file_helper_bundle_dca_tl_files extends Contao\Backend
         if ('folder' !== $row['type'] && file_exists($rootDir.'/'.$row['id']) && !is_dir($rootDir.'/'.$row['id'])) {
             return '<a href="contao/usage?src='.base64_encode($row['id']).'" title="'.Contao\StringUtil::specialchars($title).'"'.$attributes.' onclick="Backend.openModalIframe({\'title\':\''.str_replace("'", "\\'", Contao\StringUtil::specialchars($row['fileNameEncoded'])).'\',\'url\':this.href});return false">'.Contao\Image::getHtml($icon, $label).'</a> ';
         }
+
+        return '';
     }
 }

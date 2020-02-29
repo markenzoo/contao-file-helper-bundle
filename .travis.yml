@@ -1,3 +1,5 @@
+os: linux
+
 dist: bionic
 
 language: php
@@ -9,35 +11,23 @@ php:
   - "7.4"
 
 env:
-  - CONTAO_VERSION=~4.4.0
-  - CONTAO_VERSION=~4.5.0
-  - CONTAO_VERSION=~4.6.0
-  - CONTAO_VERSION=~4.7.0
-  - CONTAO_VERSION=~4.8.0
-  - CONTAO_VERSION=~4.9.0
-
-matrix:
-  allow_failures:
-    - php: "7.1"
-    - env: CONTAO_VERSION=~4.5.0
-    - env: CONTAO_VERSION=~4.6.0
-    - env: CONTAO_VERSION=~4.7.0
-    - env: CONTAO_VERSION=~4.8.0
+  - CONTAO_VERSION=4.4
+  - CONTAO_VERSION=4.9
 
 jobs:
   exclude:
   - php: "7.1"
-    env: CONTAO_VERSION=~4.9.0
+    env: CONTAO_VERSION=4.9
 
 before_script:
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - travis_retry composer self-update && composer --version
-  - travis_retry composer require contao/core-bundle $CONTAO_VERSIO --no-update --no-suggest
-  - travis_retry composer update --prefer-dist --no-interaction
+  - travis_retry composer require contao/core-bundle:$CONTAO_VERSION --no-update 
+  - travis_retry composer update --prefer-dist --no-interaction --no-suggest
 
 script: 
   - vendor/bin/phpunit
-  - vendor/bin/psalm
+  - if [[ "${CONTAO_VERSION}" == "4.9" ]]; then vendor/bin/psalm; fi
 
 cache:
   directories:
