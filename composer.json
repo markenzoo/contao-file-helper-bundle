@@ -4,12 +4,12 @@
   "version": "1.0.1",
   "description": "File Helpers for Contao 4",
   "keywords":["contao","bundle","files"],
-  "homepage": "https://github.com/markenzoo/contao-file-helper-bundle/",
+  "homepage": "https://github.com/markenzoo/contao-file-helper-bundle",
   "license": "MIT",
   "authors": [
     {
-      "name": "markenzoo eG",
-      "homepage": "https://github.com/markenzoo",
+      "name": "markenzoo",
+      "homepage": "https://www.markenzoo.de",
       "email" : "kaestner@markenzoo.de",
       "role" : "Developer"
     }

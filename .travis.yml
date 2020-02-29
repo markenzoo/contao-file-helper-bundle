@@ -25,10 +25,12 @@ matrix:
 before_script:
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - travis_retry composer self-update && composer --version
-  - travis_retry composer require contao/core-bundle $CONTAO_VERSIO --no-update
+  - travis_retry composer require contao/core-bundle $CONTAO_VERSIO --no-update --no-suggest
   - travis_retry composer update --prefer-dist --no-interaction
 
-script: vendor/bin/phpunit
+script: 
+  - vendor/bin/phpunit
+  - vendor/bin/psalm --show-info=true
 
 cache:
   directories:

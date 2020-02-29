@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<psalm
+    totallyTyped="false"
+    errorLevel="7"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+    <stubs>
+        <file name="vendor/contao/core-bundle/src/Resources/contao/config/constants.php" />
+        <file name="vendor/contao/core-bundle/src/Resources/contao/helper/functions.php" />
+    </stubs>
+    <issueHandlers>
+        <UnusedMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Markenzoo\ContaoFileHelperBundle\Module\BackendFileUsage::getUsageName" />
+                <file name="src/Module/BackendFileUsage.php" />
+            </errorLevel>
+        </UnusedMethod> 
+    </issueHandlers>
+</psalm>

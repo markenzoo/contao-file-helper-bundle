@@ -20,8 +20,10 @@ use Contao\BackendTemplate;
 use Contao\BackendUser;
 use Contao\Config;
 use Contao\Controller;
+use Contao\CoreBundle\Exception\AccessDeniedException;
 use Contao\Database;
 use Contao\Database\Result;
+use Contao\Database\Statement;
 use Contao\Date;
 use Contao\Dbafs;
 use Contao\Environment;
@@ -32,8 +34,10 @@ use Contao\Input;
 use Contao\Model;
 use Contao\Model\Collection;
 use Contao\Model\QueryBuilder;
+use Contao\RequestToken;
 use Contao\StringUtil;
 use Contao\System;
+use Symfony\Component\HttpFoundation\Response;
 
 class BackendFileUsage extends Backend
 {
@@ -101,9 +105,9 @@ class BackendFileUsage extends Backend
     /**
      * Run the controller and parse the template.
      *
-     * @return Response
+     * @return Response the http response of the controller
      */
-    public function run()
+    public function run(): Response
     {
         if ('' === $this->strFile) {
             die('No file given');
@@ -176,7 +180,6 @@ class BackendFileUsage extends Backend
                 $objTemplate->languages = (object) $GLOBALS['TL_LANG']['LNG'];
             }
         }
-
         $objTemplate->href = ampersand(Environment::get('request')).'&amp;download=1';
         $objTemplate->filesize = $this->getReadableSize($objFile->filesize).' ('.number_format($objFile->filesize, 0, $GLOBALS['TL_LANG']['MSC']['decimalSeparator'], $GLOBALS['TL_LANG']['MSC']['thousandsSeparator']).' Byte)';
         $arrUsages = [];
@@ -316,9 +319,11 @@ class BackendFileUsage extends Backend
      * @param mixed $varValue   The property value
      * @param array $arrOptions An optional options array
      *
-     * @return array An array of models found
+     * @return Model[] An array of models found
+     *
+     * @psalm-return array<array-key, Model>
      */
-    protected function find($strTable, $strColumn, $varValue, array $arrOptions = [])
+    protected function find($strTable, $strColumn, $varValue, array $arrOptions = []): array
     {
         $arrOptions = array_merge(
             [
@@ -402,13 +407,18 @@ class BackendFileUsage extends Backend
 
         $container = System::getContainer();
 
+        $framework = $container->get('contao.framework');
+
+        /** @var RequestToken $requestToken */
+        $requestToken = $framework->getAdapter(RequestToken::class);
+
         return $container->get('router')->generate('contao_backend', [
             'do' => $do,
             'act' => 'edit',
             'table' => $strTable,
             'id' => $id,
             'ref' => $container->get('request_stack')->getCurrentRequest()->attributes->get('_contao_referer_id'),
-            'rt' => REQUEST_TOKEN,
+            'rt' => $requestToken->get(),
         ]);
     }
 

@@ -35,9 +35,9 @@ class contao_file_helper_bundle_dca_tl_files extends Contao\Backend
      * @param string $icon
      * @param string $attributes
      *
-     * @return string
+     * @return null|string
      */
-    public function showUsage($row, $href, $label, $title, $icon, $attributes)
+    public function showUsage($row, $href, $label, $title, $icon, $attributes): ?string
     {
         if (Contao\Input::get('usage')) {
             return '';
