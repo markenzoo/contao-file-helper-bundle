@@ -342,7 +342,11 @@ class BackendFileUsage extends Backend
         /** @var Result $objResult */
         $objResult = $objStatement->execute($arrOptions['value']);
 
-        $arrModels = static::createCollectionFromDbResult($objResult, $strTable)->getModels();
+        $arrModels = static::createCollectionFromDbResult($objResult, $strTable);
+
+        if(empty($arrModels)){
+            return $arrModels;
+        }
 
         if ('tl_content' === $strTable) {
             $arrParentModels = [];
@@ -435,15 +439,20 @@ class BackendFileUsage extends Backend
     }
 
     /**
-     * Create a new collection from a database result.
+     * Create a new array containing a Model array of the database result.
      *
      * @param Result $objResult The database result object
      * @param string $strTable  The table name
      *
-     * @return Collection The model collection
+     * @return Model[] An array of models found
      */
     protected static function createCollectionFromDbResult(Result $objResult, $strTable)
     {
-        return Collection::createFromDbResult($objResult, $strTable);
+        try {
+            $modelCollection = Collection::createFromDbResult($objResult, $strTable);
+            return $modelCollection->getModels();
+        } catch (\Throwable $th) {
+            return [];
+        }
     }
 }
