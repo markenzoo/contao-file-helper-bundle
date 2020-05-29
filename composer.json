@@ -47,5 +47,8 @@
     "email" : "kaestner@markenzoo.de",
     "issues": "https://github.com/markenzoo/contao-file-helper-bundle/issues",
     "source": "https://github.com/markenzoo/contao-file-helper-bundle"
+  },
+  "suggest": {
+    "markenzoo/contao-expo-push-notification-bundle": "Markenzoo Expo Push Notification Bundle gives you the possibility to send custom push notifications for Expo (React Native) in Contao 4. / Die Markenzoo Erweiterung für Expo Push-Benachrichtigungen erlaubt es eigene Push-Benachrichtigungen für Expo (React Native) in Contao 4 zu versenden."
   }
 }
