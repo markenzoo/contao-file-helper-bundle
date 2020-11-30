@@ -1,7 +1,7 @@
 {
   "name": "markenzoo/contao-file-helper-bundle",
   "type": "contao-bundle",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "File Helpers for Contao 4",
   "keywords":["contao","bundle","files"],
   "homepage": "https://github.com/markenzoo/contao-file-helper-bundle",
