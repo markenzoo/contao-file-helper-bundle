@@ -44,8 +44,9 @@ class contao_file_helper_bundle_dca_tl_files extends Contao\Backend
         }
 
         $rootDir = System::getContainer()->getParameter('kernel.project_dir');
+        $path = $rootDir.'/'.dirname($row['id']).'/'.$row['fileNameEncoded'];
 
-        if ('folder' !== $row['type'] && file_exists($rootDir.'/'.$row['id']) && !is_dir($rootDir.'/'.$row['id'])) {
+        if ('folder' !== $row['type'] && file_exists($path) && !is_dir($path)) {
             return '<a href="contao/usage?src='.base64_encode($row['id']).'" title="'.Contao\StringUtil::specialchars($title).'"'.$attributes.' onclick="Backend.openModalIframe({\'title\':\''.str_replace("'", "\\'", Contao\StringUtil::specialchars($row['fileNameEncoded'])).'\',\'url\':this.href});return false">'.Contao\Image::getHtml($icon, $label).'</a> ';
         }
 
