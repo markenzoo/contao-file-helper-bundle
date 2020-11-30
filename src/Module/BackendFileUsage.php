@@ -344,7 +344,7 @@ class BackendFileUsage extends Backend
 
         $arrModels = static::createCollectionFromDbResult($objResult, $strTable);
 
-        if(empty($arrModels)){
+        if (empty($arrModels)) {
             return $arrModels;
         }
 
@@ -450,6 +450,7 @@ class BackendFileUsage extends Backend
     {
         try {
             $modelCollection = Collection::createFromDbResult($objResult, $strTable);
+
             return $modelCollection->getModels();
         } catch (\Throwable $th) {
             return [];
