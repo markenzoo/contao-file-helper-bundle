@@ -75,8 +75,7 @@ class AppKernel
 Run the PHP-CS-Fixer and the unit test before you release your bundle:
 
 ```bash
-vendor/bin/php-cs-fixer fix -v
-vendor/bin/phpunit
-vendor/bin/psalm
-vendor/bin/psalter --issues=all --dry-run
+composer run-script fix -v
+composer run-script lint
+composer run-script test
 ```
