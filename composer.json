@@ -34,7 +34,7 @@
     "friendsofphp/php-cs-fixer": "^2.0",
     "phpunit/phpunit": ">=5.7",
     "symfony/phpunit-bridge": ">=3.2",
-    "vimeo/psalm": "^3.2"
+    "vimeo/psalm": "^3.0"
   },
   "extra": {
     "contao-manager-plugin": "Markenzoo\\ContaoFileHelperBundle\\ContaoManager\\Plugin"
