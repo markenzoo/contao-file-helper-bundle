@@ -12,7 +12,6 @@ Copyright (c) 2020 markenzoo eG
 EOF;
 
 $finder = PhpCsFixer\Finder::create()
-    ->exclude('Resources')
     ->in([__DIR__.'/src', __DIR__.'/tests'])
 ;
 
