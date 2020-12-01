@@ -11,6 +11,8 @@ Contao File Helper Bundle
 
 This extension provides useful file helpers for Contao CMS.
 
+<iframe src="https://github.com/sponsors/felix-kaestner/button" title="Sponsor felix-kaestner" height="35" width="116" style="border: 0;"></iframe>
+
 <p align="left">
   <a href="https://github.com/markenzoo/contao-file-helper-bundle/">
     <img alt="markenzoo/contao-file-helper-bundle auf Github" src="https://raw.githubusercontent.com/markenzoo/contao-file-helper-bundle/master/assets/contao-file-helper-icon.png" width="200">
