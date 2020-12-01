@@ -3,13 +3,14 @@
 declare(strict_types=1);
 
 /*
- * This file is part of markenzoo/markenzoo-bundle.
+ * This file is part of markenzoo/contao-file-helper-bundle.
  *
  * Copyright (c) 2020 markenzoo eG
  *
- * @copyright   Copyright (c) 2020 markenzoo eG.
- * @author      Felix Kästner <kaestner@markenzoo.de>
- * @license     proprietary
+ * @package   markenzoo/contao-file-helper-bundle
+ * @author    Felix Kästner <kaestner@markenzoo.de>
+ * @copyright 2020 markenzoo eG
+ * @license   https://github.com/markenzoo/contao-file-helper-bundle/blob/master/LICENSE MIT License
  */
 
 $GLOBALS['TL_DCA']['tl_files']['list']['operations']['usage'] = [
@@ -34,8 +35,6 @@ class contao_file_helper_bundle_dca_tl_files extends Contao\Backend
      * @param string $title
      * @param string $icon
      * @param string $attributes
-     *
-     * @return string
      */
     public function showUsage($row, $href, $label, $title, $icon, $attributes): string
     {
@@ -43,10 +42,7 @@ class contao_file_helper_bundle_dca_tl_files extends Contao\Backend
             return '';
         }
 
-        $rootDir = System::getContainer()->getParameter('kernel.project_dir');
-        $path = $rootDir.'/'.dirname($row['id']).'/'.$row['fileNameEncoded'];
-
-        if ('folder' !== $row['type'] && file_exists($path) && !is_dir($path)) {
+        if ('file' === $row['type']) {
             return '<a href="contao/usage?src='.base64_encode($row['id']).'" title="'.Contao\StringUtil::specialchars($title).'"'.$attributes.' onclick="Backend.openModalIframe({\'title\':\''.str_replace("'", "\\'", Contao\StringUtil::specialchars($row['fileNameEncoded'])).'\',\'url\':this.href});return false">'.Contao\Image::getHtml($icon, $label).'</a> ';
         }
 
