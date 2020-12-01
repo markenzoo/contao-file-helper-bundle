@@ -205,7 +205,7 @@ class BackendFileUsage extends Backend
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
                     }
-                } elseif (\in_array($arrField['type'], ['mediumtext', 'longtext', 'blob'], true)) {
+                } elseif (\in_array($arrField['type'], ['mediumtext', 'longtext'], true)) {
                     $usage = $this->find($strTable, $arrField['name'], $objModel->path, ['like' => $objModel->path]);
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
