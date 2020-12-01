@@ -13,6 +13,11 @@ env:
   - CONTAO_VERSION=4.4
   - CONTAO_VERSION=4.9
 
+jobs:
+  exclude:
+  - php: "7.2"
+    env: CONTAO_VERSION=4.4
+
 before_script:
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - travis_retry composer self-update && composer --version
