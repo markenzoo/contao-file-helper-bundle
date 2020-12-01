@@ -205,6 +205,11 @@ class BackendFileUsage extends Backend
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
                     }
+                } elseif (\in_array($arrField['type'], ['mediumtext', 'longtext', 'blob'], true)) {
+                    $usage = $this->find($strTable, $arrField['name'], $objModel->path, ['like' => $objModel->path]);
+                    if (!empty($usage)) {
+                        $arrUsages[$strTable] = $usage;
+                    }
                 }
             }
         }
@@ -329,7 +334,6 @@ class BackendFileUsage extends Backend
             [
                 'table' => $strTable,
                 'column' => $strColumn,
-                'value' => $varValue,
             ],
             $arrOptions
         );
@@ -340,7 +344,7 @@ class BackendFileUsage extends Backend
         $objStatement = $this->database->prepare($strQuery);
 
         /** @var Result $objResult */
-        $objResult = $objStatement->execute($arrOptions['value']);
+        $objResult = $objStatement->execute(isset($arrOptions['like']) ? '%'.$arrOptions['like'].'%' : $varValue);
 
         $arrModels = static::createCollectionFromDbResult($objResult, $strTable);
 
@@ -435,7 +439,14 @@ class BackendFileUsage extends Backend
      */
     protected static function buildFindQuery(array $arrOptions)
     {
-        return QueryBuilder::find($arrOptions);
+        $strQuery = QueryBuilder::find($arrOptions);
+
+        // LIKE condition
+        if (isset($arrOptions['like'])) {
+            $strQuery = preg_replace('/=\?/i', ' LIKE ?', $strQuery);
+        }
+
+        return $strQuery;
     }
 
     /**
