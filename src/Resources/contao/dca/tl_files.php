@@ -42,7 +42,7 @@ class contao_file_helper_bundle_dca_tl_files extends Contao\Backend
             return '';
         }
 
-        if ('file' === $row['type']) {
+        if ('folder' !== $row['type']) {
             return '<a href="contao/usage?src='.base64_encode($row['id']).'" title="'.Contao\StringUtil::specialchars($title).'"'.$attributes.' onclick="Backend.openModalIframe({\'title\':\''.str_replace("'", "\\'", Contao\StringUtil::specialchars($row['fileNameEncoded'])).'\',\'url\':this.href});return false">'.Contao\Image::getHtml($icon, $label).'</a> ';
         }
 
