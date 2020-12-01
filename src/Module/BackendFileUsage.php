@@ -196,19 +196,35 @@ class BackendFileUsage extends Backend
 
             foreach ($arrFields as $arrField) {
                 if ('binary' === $arrField['type']) {
-                    $usage = $this->find($strTable, $arrField['name'], $objModel->uuid);
+                    $usage = $this->find($strTable, $arrField['name'], $objModel->uuid, [], true);
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
                     }
                 } elseif ('blob' === $arrField['type']) {
+                    $usage = $this->find($strTable, $arrField['name'], $objModel->uuid);
+                    if (!empty($usage)) {
+                        $arrUsages[$strTable] = $usage;
+                        continue;
+                    }
+
                     $usage = $this->find($strTable, $arrField['name'], StringUtil::binToUuid($objModel->uuid));
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
+                        continue;
                     }
                 } elseif (\in_array($arrField['type'], ['mediumtext', 'longtext'], true)) {
-                    $usage = $this->find($strTable, $arrField['name'], $objModel->path, ['like' => $objModel->path]);
+                    // find by name - e.g. <a href="*">...</a>
+                    $usage = $this->find($strTable, $arrField['name'], $objModel->path);
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
+                        continue;
+                    }
+
+                    // find by uuid - e.g. {{file::*}}
+                    $usage = $this->find($strTable, $arrField['name'], StringUtil::binToUuid($objModel->uuid));
+                    if (!empty($usage)) {
+                        $arrUsages[$strTable] = $usage;
+                        continue;
                     }
                 }
             }
@@ -328,13 +344,14 @@ class BackendFileUsage extends Backend
      *
      * @psalm-return array<array-key, Model>
      */
-    protected function find($strTable, $strColumn, $varValue, array $arrOptions = []): array
+    protected function find($strTable, $strColumn, $varValue, array $arrOptions = [], bool $exact = false): array
     {
         $arrOptions = array_merge(
             [
                 'table' => $strTable,
                 'column' => $strColumn,
             ],
+            $exact ? ['value' => $varValue] : ['like' => '%'.$varValue.'%'],
             $arrOptions
         );
 
@@ -344,7 +361,7 @@ class BackendFileUsage extends Backend
         $objStatement = $this->database->prepare($strQuery);
 
         /** @var Result $objResult */
-        $objResult = $objStatement->execute(isset($arrOptions['like']) ? '%'.$arrOptions['like'].'%' : $varValue);
+        $objResult = $objStatement->execute($exact ? $arrOptions['value'] : $arrOptions['like']);
 
         $arrModels = static::createCollectionFromDbResult($objResult, $strTable);
 
