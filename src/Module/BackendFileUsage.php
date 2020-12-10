@@ -212,7 +212,7 @@ class BackendFileUsage extends Backend
                         $arrUsages[$strTable] = $usage;
                         continue;
                     }
-                } elseif (\in_array($arrField['type'], ['mediumtext', 'longtext'], true)) {
+                } elseif (\in_array($arrField['type'], ['varchar', 'mediumtext', 'longtext'], true)) {
                     // find by name - e.g. <a href="*">...</a>
                     $usage = $this->find($strTable, $arrField['name'], $objModel->path);
                     if (!empty($usage)) {
