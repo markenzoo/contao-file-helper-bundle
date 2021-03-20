@@ -14,12 +14,6 @@
       "role" : "Developer"
     }
   ],
-  "funding": [
-    {
-        "type": "github",
-        "url": "https://github.com/sponsors/felix-kaestner"
-    }
-  ],
   "require": {
     "php": "^7.1",
     "contao/core-bundle": "^4.4",
