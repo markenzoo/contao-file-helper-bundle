@@ -5,11 +5,11 @@ declare(strict_types=1);
 /*
  * This file is part of markenzoo/contao-file-helper-bundle.
  *
- * Copyright (c) 2020 markenzoo eG
+ * Copyright (c) 2021 markenzoo eG
  *
  * @package   markenzoo/contao-file-helper-bundle
  * @author    Felix Kästner <kaestner@markenzoo.de>
- * @copyright 2020 markenzoo eG
+ * @copyright 2021 markenzoo eG
  * @license   https://github.com/markenzoo/contao-file-helper-bundle/blob/master/LICENSE MIT License
  */
 
@@ -24,7 +24,7 @@ $GLOBALS['TL_DCA']['tl_files']['list']['operations']['usage'] = [
  *
  * @author Felix Kästner <kaestner@markenzoo.de>
  */
-class contao_file_helper_bundle_dca_tl_files extends Contao\Backend
+class dca_tl_files extends Contao\Backend
 {
     /**
      * Return file usage button.

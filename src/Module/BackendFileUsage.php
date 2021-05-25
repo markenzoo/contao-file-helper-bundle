@@ -5,11 +5,11 @@ declare(strict_types=1);
 /*
  * This file is part of markenzoo/contao-file-helper-bundle.
  *
- * Copyright (c) 2020 markenzoo eG
+ * Copyright (c) 2021 markenzoo eG
  *
  * @package   markenzoo/contao-file-helper-bundle
  * @author    Felix Kästner <kaestner@markenzoo.de>
- * @copyright 2020 markenzoo eG
+ * @copyright 2021 markenzoo eG
  * @license   https://github.com/markenzoo/contao-file-helper-bundle/blob/master/LICENSE MIT License
  */
 
@@ -110,29 +110,29 @@ class BackendFileUsage extends Backend
     public function run(): Response
     {
         if ('' === $this->strFile) {
-            die('No file given');
+            exit('No file given');
         }
 
         // Make sure there are no attempts to hack the file system
         if (preg_match('@^\.+@', $this->strFile) || preg_match('@\.+/@', $this->strFile) || preg_match('@(://)+@', $this->strFile)) {
-            die('Invalid file name');
+            exit('Invalid file name');
         }
 
         // Limit preview to the files directory
         if (!preg_match('@^'.preg_quote(Config::get('uploadPath'), '@').'@i', $this->strFile)) {
-            die('Invalid path');
+            exit('Invalid path');
         }
 
         $rootDir = System::getContainer()->getParameter('kernel.project_dir');
 
         // Check whether the file exists
         if (!file_exists($rootDir.'/'.$this->strFile)) {
-            die('File not found');
+            exit('File not found');
         }
 
         // Check whether the file is mounted (thanks to Marko Cupic)
         if (!$this->User->hasAccess($this->strFile, 'filemounts')) {
-            die('Permission denied');
+            exit('Permission denied');
         }
 
         // Open the download dialogue
