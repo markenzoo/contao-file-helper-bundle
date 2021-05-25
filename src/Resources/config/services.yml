@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    Markenzoo\ContaoFileHelperBundle\Controller\FileHelperBackendController:
+        tags: ['controller.service_arguments']
+        
