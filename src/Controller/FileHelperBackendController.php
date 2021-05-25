@@ -15,8 +15,8 @@ declare(strict_types=1);
 
 namespace Markenzoo\ContaoFileHelperBundle\Controller;
 
+use Contao\CoreBundle\Controller\AbstractController;
 use Markenzoo\ContaoFileHelperBundle\Module\BackendFileUsage;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;  // Contao>=4.9 provides its own AbstractController class under Contao\CoreBundle\Controller\AbstractController, we use the Symfony one for backwards compatibility
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -33,7 +33,7 @@ class FileHelperBackendController extends AbstractController
      */
     public function usageAction(): Response
     {
-        $this->get('contao.framework')->initialize(); // The new AbstractController from Contao>=4.9 provides this via $this->initializeContaoFramework();
+        $this->initializeContaoFramework();
 
         $controller = new BackendFileUsage();
 
