@@ -16,7 +16,7 @@ declare(strict_types=1);
 $GLOBALS['TL_DCA']['tl_files']['list']['operations']['usage'] = [
     'href' => 'act=usage',
     'icon' => 'bundles/contaofilehelper/icons/file-usage.svg',
-    'button_callback' => ['contao_file_helper_bundle_dca_tl_files', 'showUsage'],
+    'button_callback' => ['dca_tl_files', 'showUsage'],
 ];
 
 /**
