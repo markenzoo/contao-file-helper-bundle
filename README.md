@@ -6,7 +6,6 @@ Contao File Helper Bundle
 [![Version](http://img.shields.io/packagist/php-v/markenzoo/contao-file-helper-bundle.svg?style=for-the-badge&label=PHP)](http://packagist.org/packages/markenzoo/contao-file-helper-bundle)
 [![GitHub issues](https://img.shields.io/github/issues/markenzoo/contao-file-helper-bundle?style=for-the-badge&logo=github)](https://github.com/markenzoo/contao-file-helper-bundle/issues)
 [![License](http://img.shields.io/packagist/l/markenzoo/contao-file-helper-bundle?style=for-the-badge&label=License)](http://packagist.org/packages/markenzoo/contao-file-helper-bundle)
-[![Build Status](http://img.shields.io/travis/markenzoo/contao-file-helper-bundle/master.svg?style=for-the-badge&logo=travis)](https://travis-ci.org/markenzoo/contao-file-helper-bundle)
 [![Downloads](http://img.shields.io/packagist/dt/markenzoo/contao-file-helper-bundle?style=for-the-badge&label=Downloads)](http://packagist.org/packages/markenzoo/contao-file-helper-bundle)
 
 This extension provides useful file helpers for Contao CMS.
