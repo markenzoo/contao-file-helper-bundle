@@ -5,11 +5,12 @@ declare(strict_types=1);
 /*
  * This file is part of markenzoo/contao-file-helper-bundle.
  *
- * Copyright (c) 2021 markenzoo eG
+ * Copyright (c) 2022 markenzoo eG
  *
  * @package   markenzoo/contao-file-helper-bundle
  * @author    Felix Kästner <kaestner@markenzoo.de>
- * @copyright 2021 markenzoo eG
+ * @author    Mathias Arzberger <https://github.com/MDevster>
+ * @copyright 2022 markenzoo eG
  * @license   https://github.com/markenzoo/contao-file-helper-bundle/blob/master/LICENSE MIT License
  */
 
@@ -19,7 +20,6 @@ use Contao\Backend;
 use Contao\BackendTemplate;
 use Contao\BackendUser;
 use Contao\Config;
-use Contao\Controller;
 use Contao\CoreBundle\Exception\AccessDeniedException;
 use Contao\Database;
 use Contao\Database\Result;
@@ -43,8 +43,6 @@ class BackendFileUsage extends Backend
 {
     /**
      * Database Tables to skip in search.
-     *
-     * @var array
      */
     private const FILTER = ['tl_files', 'tl_search', 'tl_search_index', 'tl_undo', 'tl_version'];
 
@@ -78,6 +76,7 @@ class BackendFileUsage extends Backend
 
         if (!System::getContainer()->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             System::log('No Authentication', __METHOD__, TL_GENERAL);
+
             throw new AccessDeniedException('Access denied');
         }
 
@@ -187,9 +186,7 @@ class BackendFileUsage extends Backend
         // get all tables from the database, we can't rely on Contao Models since that won't include usage in extensions
         $arrTables = $this->database->listTables();
         // remove tables we don't want to search in
-        $arrTables = array_filter($arrTables, function ($table) {
-            return !\in_array($table, self::FILTER, true);
-        });
+        $arrTables = array_filter($arrTables, static fn ($table) => !\in_array($table, self::FILTER, true));
 
         foreach ($arrTables as $strTable) {
             $arrFields = $this->database->listFields($strTable);
@@ -197,17 +194,20 @@ class BackendFileUsage extends Backend
             foreach ($arrFields as $arrField) {
                 if ('binary' === $arrField['type']) {
                     $usage = $this->find($strTable, $arrField['name'], $objModel->uuid, [], true);
+
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
                     }
                 } elseif ('blob' === $arrField['type']) {
                     $usage = $this->find($strTable, $arrField['name'], $objModel->uuid);
+
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
                         continue;
                     }
 
                     $usage = $this->find($strTable, $arrField['name'], StringUtil::binToUuid($objModel->uuid));
+
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
                         continue;
@@ -215,6 +215,7 @@ class BackendFileUsage extends Backend
                 } elseif (\in_array($arrField['type'], ['varchar', 'mediumtext', 'longtext'], true)) {
                     // find by name - e.g. <a href="*">...</a>
                     $usage = $this->find($strTable, $arrField['name'], $objModel->path);
+
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
                         continue;
@@ -222,6 +223,7 @@ class BackendFileUsage extends Backend
 
                     // find by uuid - e.g. {{file::*}}
                     $usage = $this->find($strTable, $arrField['name'], StringUtil::binToUuid($objModel->uuid));
+
                     if (!empty($usage)) {
                         $arrUsages[$strTable] = $usage;
                         continue;
@@ -241,6 +243,7 @@ class BackendFileUsage extends Backend
         $objTemplate->base = Environment::get('base');
         $objTemplate->language = $GLOBALS['TL_LANGUAGE'];
         $objTemplate->title = StringUtil::specialchars($this->strFile);
+
         if (version_compare(VERSION, '4.9', '>=')) {
             $objTemplate->host = Backend::getDecodedHostname();
         } else {
@@ -284,6 +287,7 @@ class BackendFileUsage extends Backend
 
             if (false !== ($pos = strpos($do, '_', 3))) {
                 $do = substr($do, 0, $pos);
+
                 if (($name = static::getLanguageEntry($do))) {
                     return $name;
                 }
@@ -318,11 +322,13 @@ class BackendFileUsage extends Backend
     protected static function getLanguageEntry(string $strEntry): ?string
     {
         $modules = ['MOD', 'FMD', 'CTE'];
+
         foreach ($modules as $module) {
             if (isset($GLOBALS['TL_LANG'][$module][$strEntry])) {
                 if (\is_array($GLOBALS['TL_LANG'][$module][$strEntry])) {
                     return $GLOBALS['TL_LANG'][$module][$strEntry][0];
                 }
+
                 if (\is_string($GLOBALS['TL_LANG'][$module][$strEntry])) {
                     return $GLOBALS['TL_LANG'][$module][$strEntry];
                 }
@@ -340,7 +346,7 @@ class BackendFileUsage extends Backend
      * @param mixed $varValue   The property value
      * @param array $arrOptions An optional options array
      *
-     * @return Model[] An array of models found
+     * @return array<Model> An array of models found
      *
      * @psalm-return array<array-key, Model>
      */
@@ -472,7 +478,7 @@ class BackendFileUsage extends Backend
      * @param Result $objResult The database result object
      * @param string $strTable  The table name
      *
-     * @return Model[] An array of models found
+     * @return array<Model> An array of models found
      */
     protected static function createCollectionFromDbResult(Result $objResult, $strTable)
     {

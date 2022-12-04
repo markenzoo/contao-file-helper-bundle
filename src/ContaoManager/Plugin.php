@@ -5,11 +5,12 @@ declare(strict_types=1);
 /*
  * This file is part of markenzoo/contao-file-helper-bundle.
  *
- * Copyright (c) 2021 markenzoo eG
+ * Copyright (c) 2022 markenzoo eG
  *
  * @package   markenzoo/contao-file-helper-bundle
  * @author    Felix Kästner <kaestner@markenzoo.de>
- * @copyright 2021 markenzoo eG
+ * @author    Mathias Arzberger <https://github.com/MDevster>
+ * @copyright 2022 markenzoo eG
  * @license   https://github.com/markenzoo/contao-file-helper-bundle/blob/master/LICENSE MIT License
  */
 
@@ -44,8 +45,8 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel): ?RouteCollection
     {
         return $resolver
-             ->resolve(__DIR__.'/../Resources/config/routing.yml')
-             ->load(__DIR__.'/../Resources/config/routing.yml')
+            ->resolve(__DIR__.'/../Resources/config/routing.yml')
+            ->load(__DIR__.'/../Resources/config/routing.yml')
          ;
     }
 }
