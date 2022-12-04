@@ -23,21 +23,21 @@ Features
  - Edit related modules/elements with one click
  - Manage your files in the contao backend
  - View file meta information
- 
+
 Requirements
 ------------
 
- - PHP >7.1
- - Contao ~4.4 LTS || ~4.9 LTS
- 
- 
+ - PHP ^7.2 || ^8.0
+ - Contao ^4.9
+
+
 Install
 -------
 
 ### Managed edition
 
 When using the managed edition it's pretty simple to install the package. Just search for the package in the
-Contao Manager and install it. Alternatively you can use the CLI.  
+Contao Manager and install it. Alternatively you can use the CLI.
 
 ```bash
 # Using the contao manager
