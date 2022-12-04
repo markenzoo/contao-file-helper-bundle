@@ -5,3 +5,6 @@
 # PhpUnit
 /phpunit.xml
 .phpunit.*
+
+#PhpStorm
+.idea
