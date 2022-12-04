@@ -383,7 +383,7 @@ class BackendFileUsage extends Backend
 
                     if (null !== $objParentModel) {
                         // generate backend urls to edit the object
-                        $objParentModel->backendUrl = static::buildBackendUrl($objParentModel, $strTable, $objModel->id);
+                        $objParentModel->backendUrl = static::buildBackendUrl($objParentModel, $strTable, (int) $objModel->id);
 
                         // add the model to the array of models
                         $arrParentModels[] = $objParentModel;
