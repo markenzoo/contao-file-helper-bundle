@@ -12,7 +12,7 @@ jobs:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 7.2 # Run with the lowest supported to avoid incompatible fixes
+                    php-version: 7.4 # Run with the lowest supported to avoid incompatible fixes
                     extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, mysqli, pcre, pdo_mysql, zlib
                     coverage: none
                 env:
@@ -59,7 +59,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: [ 7.2, 7.4, 8.0, 8.1 ]
+                php: [ 7.4, 8.0, 8.1 ]
         steps:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2

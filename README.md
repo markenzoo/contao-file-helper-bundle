@@ -78,3 +78,11 @@ composer run-script fix -v
 composer run-script lint
 composer run-script test
 ```
+
+### github.com ci
+
+```bash
+vendor/bin/ecs check src tests --config ecs.php --no-progress-bar
+vendor/bin/phpstan analyse --no-progress
+vendor/bin/phpunit --colors=always
+```

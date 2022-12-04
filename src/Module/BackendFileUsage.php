@@ -336,9 +336,9 @@ class BackendFileUsage extends Backend
     /**
      * Find records by various criteria.
      *
-     * @param mixed $strTable   The database table
-     * @param mixed $strColumn  The property name
-     * @param mixed $varValue   The property value
+     * @param mixed        $strTable   The database table
+     * @param mixed        $strColumn  The property name
+     * @param mixed        $varValue   The property value
      * @param array<mixed> $arrOptions An optional options array
      *
      * @return array<Model> An array of models found
@@ -407,7 +407,7 @@ class BackendFileUsage extends Backend
      *
      * @param Model  $objModel The model object
      * @param string $strTable The table name where this model is used
-     * @param int $id The id of the object to edit
+     * @param int    $id       The id of the object to edit
      *
      * @return string A backend route
      */

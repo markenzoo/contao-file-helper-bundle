@@ -36,11 +36,11 @@ class dca_tl_files extends Backend
      * Return file usage button.
      *
      * @param array<mixed> $row
-     * @param string $href
-     * @param string $label
-     * @param string $title
-     * @param string $icon
-     * @param string $attributes
+     * @param string       $href
+     * @param string       $label
+     * @param string       $title
+     * @param string       $icon
+     * @param string       $attributes
      */
     public function showUsage($row, $href, $label, $title, $icon, $attributes): string
     {
