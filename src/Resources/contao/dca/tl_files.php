@@ -14,6 +14,11 @@ declare(strict_types=1);
  * @license   https://github.com/markenzoo/contao-file-helper-bundle/blob/master/LICENSE MIT License
  */
 
+use Contao\Backend;
+use Contao\Image;
+use Contao\Input;
+use Contao\StringUtil;
+
 $GLOBALS['TL_DCA']['tl_files']['list']['operations']['usage'] = [
     'href' => 'act=usage',
     'icon' => 'bundles/contaofilehelper/icons/file-usage.svg',
@@ -25,7 +30,7 @@ $GLOBALS['TL_DCA']['tl_files']['list']['operations']['usage'] = [
  *
  * @author Felix Kästner <kaestner@markenzoo.de>
  */
-class dca_tl_files extends Contao\Backend
+class dca_tl_files extends Backend
 {
     /**
      * Return file usage button.
@@ -39,12 +44,12 @@ class dca_tl_files extends Contao\Backend
      */
     public function showUsage($row, $href, $label, $title, $icon, $attributes): string
     {
-        if (Contao\Input::get('usage')) {
+        if (Input::get('usage')) {
             return '';
         }
 
         if ('folder' !== $row['type']) {
-            return '<a href="contao/usage?src='.base64_encode($row['id']).'" title="'.Contao\StringUtil::specialchars($title).'"'.$attributes.' onclick="Backend.openModalIframe({\'title\':\''.str_replace("'", "\\'", Contao\StringUtil::specialchars($row['fileNameEncoded'])).'\',\'url\':this.href});return false">'.Contao\Image::getHtml($icon, $label).'</a> ';
+            return '<a href="contao/usage?src='.base64_encode($row['id']).'" title="'.StringUtil::specialchars($title).'"'.$attributes.' onclick="Backend.openModalIframe({\'title\':\''.str_replace("'", "\\'", StringUtil::specialchars($row['fileNameEncoded'])).'\',\'url\':this.href});return false">'.Image::getHtml($icon, $label).'</a> ';
         }
 
         return '';
