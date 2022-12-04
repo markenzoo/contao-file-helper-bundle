@@ -146,7 +146,7 @@ class BackendFileUsage extends Backend
         /** @var FilesModel $objModel */
         $objModel = FilesModel::findByPath($this->strFile);
 
-        // Add the resource (see #6880)
+        // Add the resource (see #6880) @phpstan-ignore-next-line
         if (null === $objModel && Dbafs::shouldBeSynchronized($this->strFile)) {
             $objModel = Dbafs::addResource($this->strFile);
         }
@@ -235,20 +235,15 @@ class BackendFileUsage extends Backend
         $objTemplate->usage = $arrUsages;
         $objTemplate->icon = $objFile->icon;
         $objTemplate->mime = $objFile->mime;
-        $objTemplate->ctime = Date::parse(Config::get('datimFormat'), $objFile->ctime);
-        $objTemplate->mtime = Date::parse(Config::get('datimFormat'), $objFile->mtime);
-        $objTemplate->atime = Date::parse(Config::get('datimFormat'), $objFile->atime);
+        $objTemplate->ctime = Date::parse(Config::get('datimFormat'), (int) $objFile->ctime);
+        $objTemplate->mtime = Date::parse(Config::get('datimFormat'), (int) $objFile->mtime);
+        $objTemplate->atime = Date::parse(Config::get('datimFormat'), (int) $objFile->atime);
         $objTemplate->path = StringUtil::specialchars($this->strFile);
         $objTemplate->theme = Backend::getTheme();
         $objTemplate->base = Environment::get('base');
         $objTemplate->language = $GLOBALS['TL_LANGUAGE'];
         $objTemplate->title = StringUtil::specialchars($this->strFile);
-
-        if (version_compare(VERSION, '4.9', '>=')) {
-            $objTemplate->host = Backend::getDecodedHostname();
-        } else {
-            $objTemplate->host = static::getDecodedHostname();
-        }
+        $objTemplate->host = Backend::getDecodedHostname();
         $objTemplate->charset = Config::get('characterSet');
         $objTemplate->labels = (object) $GLOBALS['TL_LANG']['MSC'];
         $objTemplate->download = StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['fileDownload']);
@@ -344,7 +339,7 @@ class BackendFileUsage extends Backend
      * @param mixed $strTable   The database table
      * @param mixed $strColumn  The property name
      * @param mixed $varValue   The property value
-     * @param array $arrOptions An optional options array
+     * @param array<mixed> $arrOptions An optional options array
      *
      * @return array<Model> An array of models found
      *
@@ -412,11 +407,11 @@ class BackendFileUsage extends Backend
      *
      * @param Model  $objModel The model object
      * @param string $strTable The table name where this model is used
-     * @param string $id       The id of the object to edit
+     * @param int $id The id of the object to edit
      *
      * @return string A backend route
      */
-    protected static function buildBackendUrl(Model $objModel, string $strTable, string $id): string
+    protected static function buildBackendUrl(Model $objModel, string $strTable, int $id): string
     {
         /** @var string $strModel */
         $strModel = \get_class($objModel);
@@ -456,7 +451,7 @@ class BackendFileUsage extends Backend
     /**
      * Build a query based on the given options.
      *
-     * @param array $arrOptions The options array
+     * @param array<mixed> $arrOptions The options array
      *
      * @return string The query string
      */

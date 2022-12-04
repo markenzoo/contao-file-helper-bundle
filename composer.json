@@ -29,6 +29,9 @@
     "contao/easy-coding-standard": "^3.0",
     "phpunit/phpunit": "^8.5 || ^9.5",
     "symfony/phpunit-bridge": "^5.3 || ^6.0",
+    "phpstan/phpstan": "^1.8",
+    "phpstan/phpstan-phpunit": "^1.1",
+    "phpstan/phpstan-symfony": "^1.2",
     "vimeo/psalm": "^3.0"
   },
   "extra": {
