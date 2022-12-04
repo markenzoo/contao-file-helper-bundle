@@ -3,7 +3,7 @@
 /vendor/
 
 # PhpUnit
-/phpunit.xml
+/phpunit.xml.*
 .phpunit.*
 report.xml
 
